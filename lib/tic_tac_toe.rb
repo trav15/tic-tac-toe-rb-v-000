@@ -35,47 +35,8 @@ def display_board(board)
 end
 
 def valid_move?(board, index)
-  if index.between?(0,8)
-    if !position_taken?(board, index)
-      true
-    end
-  end  
+  index.between?(0,8) && !position_taken?(board, index)
 end
-
-def input_to_index(user_input)
-  user_input.to_i - 1
-end
-
-def player_move(board, index, current_player)
-  board[index] = current_player
-end
-
-def turn(board)
-  puts "Please enter 1-9:"
-  user_input = gets.strip
-  index = input_to_index(user_input)
-  if valid_move?(board, index)
-    player_move(board, index, current_player(board))
-    display_board(board)
-  else
-    turn(board)
-  end
-end
-
-def turn_count(board)
-  counter = 0
-  board.each do |current_token|
-    if current_token == "X" || current_token == "O"
-      counter += 1
-    end
-  end
-  counter
-end
-
-def current_player(board)
-  turn_count(board) % 2 == 0 ? "X" : "O"
-end
-
 
 def won?(board)
   WIN_COMBINATIONS.detect do |combo|
@@ -90,11 +51,39 @@ def full?(board)
 end
 
 def draw?(board)
-  full?(board) && !won?(board)
+  !won?(board) && full?(board)
 end
 
 def over?(board)
-  won?(board) || full?(board)
+  won?(board) || draw?(board)
+end
+
+def input_to_index(user_input)
+  user_input.to_i - 1
+end
+
+def turn(board)
+  puts "Please enter 1-9:"
+  user_input = gets.strip
+  index = input_to_index(user_input)
+  if valid_move?(board, index)
+    player_move(board, index, current_player(board))
+    display_board(board)
+  else
+    turn(board)
+  end
+end
+
+def current_player(board)
+  turn_count(board) % 2 == 0 ? "X" : "O"
+end
+
+def turn_count(board)
+  board.count{|token| token == "X" || token == "O"}
+end
+
+def player_move(board, index, player)
+  board[index] = player
 end
 
 def winner(board)
