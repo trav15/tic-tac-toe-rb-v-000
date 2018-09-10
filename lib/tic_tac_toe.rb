@@ -51,7 +51,7 @@ def turn(board)
   end
 end
 
-def move
+def move (board, )
 end
 
 def turn_count(board)
