@@ -51,6 +51,9 @@ def turn(board)
   end
 end
 
+def move
+end
+
 def turn_count(board)
   counter = 0
   board.each do |current_token|
