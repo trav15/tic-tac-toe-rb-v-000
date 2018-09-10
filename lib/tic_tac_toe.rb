@@ -15,7 +15,7 @@ WIN_COMBINATIONS = [
   [6,4,2]
 ]
 
-def play()
+def play(board)
   
 end
 
