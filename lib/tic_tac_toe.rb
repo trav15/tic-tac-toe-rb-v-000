@@ -16,7 +16,8 @@ WIN_COMBINATIONS = [
 ]
 
 def play(board)
-  
+  while !over?(board)
+    turn(board)
 end
 
 def display_board(board)
